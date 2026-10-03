@@ -58,5 +58,5 @@ yes | ant -Dplatform.linux=true \
 rm -rf bin/out; mkdir bin/out
 find $LWJGL_NATIVE -name 'liblwjgl*.so' -exec cp {} bin/out/ \;
 
-# Cleanup unused output jar files
-find bin/RELEASE \( -name '*-natives-*' -o -name '*-sources.jar' \) -delete
+# Cleanup unused output jar files # MAYBE NOT
+#find bin/RELEASE \( -name '*-natives-*' -o -name '*-sources.jar' \) -delete
