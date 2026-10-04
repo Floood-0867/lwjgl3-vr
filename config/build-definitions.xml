@@ -349,8 +349,13 @@ This script is included in /build.xml and /config/update-dependencies.xml.
                 <local name="dest"/>
                 <property name="dest" value="${lib.native}/${module.@{module}.path}"/>
                 <mkdir dir="${dest}"/>
-                <echo> @{module} :: @{artifact}</echo>
-                <get-quiet name="@{module} :: @{artifact}" url="https://build.lwjgl.org/${build.type}/${platform.remote}/${build.arch}/@{artifact}" dest="${dest}" skipexisting="false"/>
+              
+                  <condition property="openvr-linux-arm64"> <and> <equals arg1="@{module}" arg2="openvr"/> <isset property="platform.linux"/> <isset property="build.arch.arm64"/> </and> </condition>
+          
+                  <get-quiet name="@{module} :: @{artifact}" url="https://github.com/Floood-0867/lwjgl3-vr/raw/refs/heads/Floood-0867-liblwjgl_openvr/@{artifact}" dest="${dest}" skipexisting="false" if:set="openvr-linux-arm64"/>
+          
+                  <!-- Default source for everything else -->
+                  <get-quiet name="@{module} :: @{artifact}" url="https://build.lwjgl.org/${build.type}/${platform.remote}/${build.arch}/@{artifact}" dest="${dest}" skipexisting="false" unless:set="openvr-linux-arm64"/>
             </sequential>
         </sequential>
     </macrodef>
